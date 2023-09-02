@@ -15,15 +15,36 @@ class Tetris:
 
     def run_game(self):
         """Запуск основного цикла игры."""
-        if self.settings.game_active:
-            pass
+        while True:
+            self._check_events()
+            if self.settings.game_active:
+                pass
 
-        self._update_screen()
+            self._update_screen()
     
+
+    def _check_events(self):
+        """Обрабатывает действия с клавиатуры и мыши."""
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                self._check_keydown_events(event)
+    
+
+    def _check_keydown_events(self, event):
+        """Обрабатывает нажатия на клавиши."""
+        if event.key == pygame.K_q:
+            sys.exit()
+
 
     def _update_screen(self):
         """Обновляет изображения на экране и отображает новый экран."""
         self.screen.fill(self.settings.bg_color)
-        
+
         pygame.display.flip()
 
+
+if __name__ == '__main__':
+    tetris = Tetris()
+    tetris.run_game()
