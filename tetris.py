@@ -2,6 +2,7 @@ import sys
 import pygame
 
 from settings import Settings
+from game_field import GameField
 
 class Tetris:
     """Класс для управления игрой."""
@@ -11,6 +12,8 @@ class Tetris:
 
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption('Tetris')
+
+        game_field = GameField(self)
     
 
     def run_game(self):
