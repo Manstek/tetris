@@ -10,6 +10,8 @@ class Settings:
         self.base_figure_width = 40
         self.base_figure_height = 40
         self.base_figure_color = (255, 255, 255)
+        self.base_figure_speed_y = 2.5
+        self.base_figure_speed_x = 40
 
         self.field_color = (0, 255, 0)
         self.field_width = 200

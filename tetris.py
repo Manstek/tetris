@@ -25,6 +25,7 @@ class Tetris:
             self._check_events()
             if self.settings.game_active:
                 self._draw_lines()
+                self._update_figure()
 
             self._update_screen()
     
@@ -42,6 +43,10 @@ class Tetris:
         """Обрабатывает нажатия на клавиши."""
         if event.key == pygame.K_q:
             sys.exit()
+        elif event.key == pygame.K_RIGHT:
+            self.square.moving_right = True
+        elif event.key == pygame.K_LEFT:
+            self.square.moving_left = True
 
 
     def _draw_lines(self):
@@ -49,6 +54,13 @@ class Tetris:
         new_line = GameField(self)
         new_line.create_game_field()
         self.lines.add(new_line)
+
+
+    def _update_figure(self):
+        """Перемещает базовую фигуру."""
+        end_line_pos_y = self.settings.screen_height - 2 * self.settings.step
+        if self.square.rect.y < end_line_pos_y and  100 <= self.square.rect.x <= 300:
+            self.square.update()
 
 
     def _update_screen(self):
