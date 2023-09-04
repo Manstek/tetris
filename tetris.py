@@ -12,8 +12,8 @@ class Tetris:
 
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption('Tetris')
-
-        game_field = GameField(self)
+        
+        self.lines = pygame.sprite.Group()
     
 
     def run_game(self):
@@ -21,7 +21,7 @@ class Tetris:
         while True:
             self._check_events()
             if self.settings.game_active:
-                pass
+                self._draw_lines()
 
             self._update_screen()
     
@@ -41,9 +41,19 @@ class Tetris:
             sys.exit()
 
 
+    def _draw_lines(self):
+        """Выводит игровое поле из линий на экран."""
+        new_line = GameField(self)
+        new_line.create_game_field()
+        self.lines.add(new_line)
+
+
     def _update_screen(self):
         """Обновляет изображения на экране и отображает новый экран."""
         self.screen.fill(self.settings.bg_color)
+
+        for line in self.lines.sprites():
+            line.create_game_field()
 
         pygame.display.flip()
 
