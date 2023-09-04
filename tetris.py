@@ -3,6 +3,7 @@ import pygame
 
 from settings import Settings
 from game_field import GameField
+from base_figure import BaseFigure
 
 class Tetris:
     """Класс для управления игрой."""
@@ -14,6 +15,8 @@ class Tetris:
         pygame.display.set_caption('Tetris')
         
         self.lines = pygame.sprite.Group()
+
+        self.square = BaseFigure(self)
     
 
     def run_game(self):
@@ -54,6 +57,8 @@ class Tetris:
 
         for line in self.lines.sprites():
             line.create_game_field()
+        
+        self.square.create_BaseFigure()
 
         pygame.display.flip()
 
