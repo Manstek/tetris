@@ -5,8 +5,6 @@ class Settings:
         self.screen_height = 800
         self.bg_color = (0, 0, 0)
 
-        self.game_active = True
-
         self.base_figure_width = 40
         self.base_figure_height = 40
         self.base_figure_color = (255, 255, 255)

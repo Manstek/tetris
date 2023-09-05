@@ -33,14 +33,13 @@ class BaseFigure:
         self.rect.y = self.y
 
         if self.moving_right:
-            self.x += self.settings.base_figure_speed_x
-            self.rect.x = self.x
-            self.moving_right = False
+            if self.rect.x < self.start_first_line_x + 4 * self.settings.step:
+                self.x += self.settings.base_figure_speed_x
+                self.rect.x = self.x
+                self.moving_right = False
         if self.moving_left:
-            self.x -= self.settings.base_figure_speed_x
-            self.rect.x = self.x
-            self.moving_left = False
-
-
-
+            if self.rect.x > self.start_first_line_x:
+                self.x -= self.settings.base_figure_speed_x
+                self.rect.x = self.x
+                self.moving_left = False
 

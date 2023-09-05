@@ -4,6 +4,8 @@ import pygame
 from settings import Settings
 from game_field import GameField
 from base_figure import BaseFigure
+from game_stats import GameStats
+from button import Button
 
 class Tetris:
     """Класс для управления игрой."""
@@ -17,14 +19,18 @@ class Tetris:
         self.lines = pygame.sprite.Group()
 
         self.square = BaseFigure(self)
+
+        self.stats = GameStats(self)
+        self.play_button = Button(self, 'Play')
+        self.stop_button = Button(self, 'Stop')
     
 
     def run_game(self):
         """Запуск основного цикла игры."""
         while True:
             self._check_events()
-            if self.settings.game_active:
-                self._draw_lines()
+            self._draw_lines()
+            if self.stats.game_active:
                 self._update_figure()
 
             self._update_screen()
@@ -59,7 +65,9 @@ class Tetris:
     def _update_figure(self):
         """Перемещает базовую фигуру."""
         end_line_pos_y = self.settings.screen_height - 2 * self.settings.step
-        if self.square.rect.y < end_line_pos_y and  100 <= self.square.rect.x <= 300:
+        start_first_line_x = (self.settings.screen_width - self.settings.field_width) // 2
+        end_last_line_x = start_first_line_x + 4 * self.settings.step
+        if self.square.rect.y < end_line_pos_y and start_first_line_x <= self.square.rect.x <= end_last_line_x:
             self.square.update()
 
 
@@ -71,6 +79,11 @@ class Tetris:
             line.create_game_field()
         
         self.square.create_BaseFigure()
+
+        if not self.stats.game_active:
+            self.play_button.draw_button()
+        else:
+            self.stop_button.draw_button()
 
         pygame.display.flip()
 
